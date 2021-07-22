@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-07-16 11:41:14
- * @LastEditTime: 2021-07-16 11:43:22
+ * @LastEditTime: 2021-07-22 16:31:59
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /jsstruct/linklist/linklist1.js
@@ -35,11 +35,55 @@
 题目数据保证列表表示的数字不含前导零
  */
 
+
 /**
  * @param {ListNode} l1
  * @param {ListNode} l2
  * @return {ListNode}
  */
  var addTwoNumbers = function(l1, l2) {
-    
+    let head = null, tail =null;
+    let carry = 0;
+    while(l1 || l2) {
+        const n1 = l1 ? l1.val : 0;
+        const n2 = l2 ? l2.val : 0;
+
+        const sum = n1 + n2 + carry;
+
+        if (!head) {
+            head = tail = new ListNode(sum % 10);
+        } else {
+            tail.next = new ListNode(sum % 10);
+            tail = tail.next;
+        }
+        carry = Math.floor(sum / 10);
+
+        if (l1) {
+            l1 = l1.next;
+        }
+        if (l2) {
+            l2 = l2.next;
+        }
+    }
+
+    if (carry > 0) {
+        tail.next = new ListNode(carry);
+    }
+    return head;
 };
+
+const l1 = new ListNode(9, new ListNode(9, new ListNode(9 , new ListNode(9 , new ListNode(9 , new ListNode(9 , new ListNode(9)))))));
+const l2 = new ListNode(9, new ListNode(9, new ListNode(9 , new ListNode(9))));
+
+const result = addTwoNumbers(l1, l2);
+console.log(result);
+const newOne = new LinkList();
+newOne.add(result);
+console.log(newOne.toListNodeString());
+
+
+/**
+ * 复杂度分析
+ * 时间复杂度：O(Max(m,n)) 要遍历链表的全部位置，处理每个位置只需要O(1)
+ * 空间复杂度 O(1)
+ * */ 
