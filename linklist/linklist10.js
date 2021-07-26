@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-07-26 20:02:28
- * @LastEditTime: 2021-07-26 20:02:40
+ * @LastEditTime: 2021-07-26 20:12:37
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /jsstruct/linklist/linklist10.js
@@ -48,5 +48,14 @@
  * @return {ListNode}
  */
  var deleteDuplicates = function(head) {
-
+    if (head === null)  return head;
+    let curr = head;
+    while(curr.next) {
+        if (curr.val === curr.next.val) {
+            curr.next = curr.next.next;
+        } else {
+            curr = curr.next;
+        }
+    }
+    return head;
 };
