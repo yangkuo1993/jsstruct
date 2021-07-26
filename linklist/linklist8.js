@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-07-26 15:28:55
- * @LastEditTime: 2021-07-26 15:29:08
+ * @LastEditTime: 2021-07-26 19:40:39
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /jsstruct/linklist/linklist8.js
@@ -34,3 +34,45 @@
 链接：https://leetcode-cn.com/problems/rotate-list
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
+
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @param {number} k
+ * @return {ListNode}
+ * 时间复杂度：O(n)O(n)，最坏情况下，我们需要遍历该链表两次。
+
+空间复杂度：O(1)O(1)，我们只需要常数的空间存储若干变量
+ */
+ var rotateRight = function(head, k) {
+    if (k === 0 || head === null || head.next === null) {
+        return head;
+    }
+    let n = 1;
+    let curr = head;
+    while(curr.next) {
+        curr = curr.next;
+        n++;
+    }
+
+    let add = n - k % n;
+    if (add === n) {
+        return head;
+    }
+    curr.next = head;
+    
+    while(add) {
+        curr = curr.next;
+        add--;
+    }
+
+    const ret = curr.next;
+    curr.next = null;
+    return ret;
+};
