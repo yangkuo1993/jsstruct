@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-07-27 11:52:40
- * @LastEditTime: 2021-07-27 14:38:25
+ * @LastEditTime: 2021-07-27 17:27:50
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /jsstruct/linklist/linklist12.js
@@ -59,38 +59,74 @@ var reverseList = function(head) {
  * @param {number} left
  * @param {number} right
  * @return {ListNode}
+ * 
+ * 时间复杂度：O(N)O(N)，其中 NN 是链表总节点数。最坏情况下，需要遍历整个链表。
+
+空间复杂度：O(1)O(1)。只使用到常数个变量。
  */
- var reverseBetween = function(head, left, right) {
+//  var reverseBetween = function(head, left, right) {
+//     if (head === null || head.next === null) {
+//         return head;
+//     }
+//     const dummyHead = new ListNode(-1);
+//     dummyHead.next = head;
+
+//     let pre = dummyHead;
+
+//     for (let i = 0; i < left - 1; i++) {
+//         pre = pre.next;
+//     }
+
+//     let rightNode = pre;
+
+//     for (let i = 0; i< right - left + 1; i++) {
+//         rightNode = rightNode.next;
+//     }
+
+//     let leftNode = pre.next;
+//     let curr = rightNode.next;
+
+//     pre.next = null;
+//     rightNode.next = null;
+
+//     reverseList(leftNode);
+
+//     pre.next = rightNode;
+//     leftNode.next = curr;
+//     return dummyHead.next;
+
+// };
+
+
+/**
+ * 方法二 遍历一次
+ * 
+ * 时间复杂度：O(N)O(N)，其中 NN 是链表总节点数。最多只遍历了链表一次，就完成了反转。
+
+空间复杂度：O(1)O(1)。只使用到常数个变量。
+ */
+
+var reverseBetween = function(head, left, right) {
     if (head === null || head.next === null) {
         return head;
     }
-    const dummyHead = new ListNode(-1);
+    let dummyHead = new ListNode(-1);
     dummyHead.next = head;
 
     let pre = dummyHead;
-
     for (let i = 0; i < left - 1; i++) {
         pre = pre.next;
     }
+    let curr = pre.next;
 
-    let rightNode = pre;
 
-    for (let i = 0; i< right - left + 1; i++) {
-        rightNode = rightNode.next;
+    for (let i =0; i < right - left; i++) {
+        const next = curr.next;
+        curr.next = next.next;
+        next.next = pre.next;
+        pre.next = next;
     }
-
-    let leftNode = pre.next;
-    let curr = rightNode.next;
-
-    pre.next = null;
-    rightNode.next = null;
-
-    reverseList(leftNode);
-
-    pre.next = rightNode;
-    leftNode.next = curr;
     return dummyHead.next;
-
 };
 
 const test = new ListNode(
