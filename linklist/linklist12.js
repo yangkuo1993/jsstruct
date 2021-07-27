@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-07-27 11:52:40
- * @LastEditTime: 2021-07-27 13:54:56
+ * @LastEditTime: 2021-07-27 14:38:25
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /jsstruct/linklist/linklist12.js
@@ -43,6 +43,17 @@
  *     this.next = (next===undefined ? null : next)
  * }
  */
+
+var reverseList = function(head) {
+    if (head === null || head.next === null) {
+        return head;
+    }
+    let result = reverseList(head.next);
+    head.next.next = head;
+    head.next = null;
+    return result;
+}
+
 /**
  * @param {ListNode} head
  * @param {number} left
@@ -53,19 +64,46 @@
     if (head === null || head.next === null) {
         return head;
     }
-    // let dummyOutList = new ListNode(0);
-    // let outListHead = dummyOutList;
-    // let dummyInnerList = new ListNode(0);
-    // let innerHead = dummyInnerList;
-    // while(head) {
-    //     if (head.val >= left && head.val <= right) {
-    //         dummyInnerList.next = head;
-    //         dummyInnerList = dummyInnerList.next;
-    //     } else {
-    //         dummyOutList.next = head;
-    //         dummyOutList = dummyOutList.next;
-    //     }
-    //     head = head.next;
-    // }
+    const dummyHead = new ListNode(-1);
+    dummyHead.next = head;
+
+    let pre = dummyHead;
+
+    for (let i = 0; i < left - 1; i++) {
+        pre = pre.next;
+    }
+
+    let rightNode = pre;
+
+    for (let i = 0; i< right - left + 1; i++) {
+        rightNode = rightNode.next;
+    }
+
+    let leftNode = pre.next;
+    let curr = rightNode.next;
+
+    pre.next = null;
+    rightNode.next = null;
+
+    reverseList(leftNode);
+
+    pre.next = rightNode;
+    leftNode.next = curr;
+    return dummyHead.next;
 
 };
+
+const test = new ListNode(
+    1,
+    new ListNode(
+      2,
+      new ListNode(3, new ListNode(4, new ListNode(5)))
+    )
+  );
+  
+  const result1 = reverseBetween(test, 2, 4);
+  
+  const newOne1 = new LinkList();
+  newOne1.add(result1);
+  console.log(newOne1.toListNodeString());
+  
