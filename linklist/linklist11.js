@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-07-26 20:13:41
- * @LastEditTime: 2021-07-26 20:13:51
+ * @LastEditTime: 2021-07-27 11:51:57
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /jsstruct/linklist/linklist11.js
@@ -43,7 +43,41 @@
  * @param {ListNode} head
  * @param {number} x
  * @return {ListNode}
- */
- var partition = function(head, x) {
+ * 
+ * 时间复杂度: O(n)O(n)，其中 nn 是原链表的长度。我们对该链表进行了一次遍历。
 
+空间复杂度: O(1)O(1)。
+ */
+var partition = function (head, x) {
+  let small = new ListNode(0);
+  const smallHead = small;
+  let large = new ListNode(0);
+  const largeHead = large;
+  while(head !== null) {
+      if (head.val < x) {
+        small.next = head;
+        small = small.next;
+      } else {
+        large.next = head;
+        large = large.next;
+      }
+      head = head.next;
+  }
+  large.next = null;
+  small.next = largeHead.next;
+  return smallHead.next;
 };
+
+const test = new ListNode(
+  1,
+  new ListNode(
+    4,
+    new ListNode(3, new ListNode(2, new ListNode(5, new ListNode(2))))
+  )
+);
+
+const result1 = partition(test, 3);
+
+const newOne1 = new LinkList();
+newOne1.add(result1);
+console.log(newOne1.toListNodeString());
