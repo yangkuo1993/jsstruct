@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-07-27 17:32:22
- * @LastEditTime: 2021-07-27 17:37:17
+ * @LastEditTime: 2021-07-27 18:21:42
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /jsstruct/linklist/linklist13.js
@@ -66,21 +66,70 @@ pos 为 -1 或者链表中的一个 有效索引 。
 /**
  * @param {ListNode} head
  * @return {boolean}
+ * 
+ * 方法一快慢指针
+ * 
+ * 时间复杂度：O(N)O(N)，其中 NN 是链表中的节点数。
+
+当链表中不存在环时，快指针将先于慢指针到达链表尾部，链表中每个节点至多被访问两次。
+
+当链表中存在环时，每一轮移动后，快慢指针的距离将减小一。而初始距离为环的长度，因此至多移动 NN 轮。
+
+空间复杂度：O(1)O(1)。我们只使用了两个指针的额外空间。
+
+作者：LeetCode-Solution
+链接：https://leetcode-cn.com/problems/linked-list-cycle/solution/huan-xing-lian-biao-by-leetcode-solution/
+来源：力扣（LeetCode）
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
  */
- var hasCycle = function(head) {
-    
+// var hasCycle = function(head) {
+//     if (head === null || head.next === null) {
+//         return false;
+//     }
+//     let slow = head;
+//     let fast = head.next;
+//     while(slow !== fast) {
+//         if (fast === null || fast.next === null) {
+//             return false;
+//         }
+//         slow = slow.next;
+//         fast = fast.next.next;
+//     }
+//     return true;
+// };
+
+
+/**
+ * 
+ * 方法二，哈希表
+ */
+var hasCycle = function(head) {
+    if (head === null || head.next === null) {
+        return false;
+    }
+    let see = new Map();
+
+    while(head) {
+        if (see.get(head)) {
+            return true;
+        } else {
+            see.set(head, head.val);
+        }
+        head = head.next;
+    }
+    return false;
 };
 
-const test = new ListNode(
-    1,
-    new ListNode(
-      4,
-      new ListNode(3, new ListNode(2, new ListNode(5, new ListNode(2))))
-    )
-  );
+// const test = new ListNode(
+//     1,
+//     new ListNode(
+//       4,
+//       new ListNode(3, new ListNode(2, new ListNode(5, new ListNode(2))))
+//     )
+//   );
   
-  const result1 = partition(test, 3);
+//   const result1 = partition(test, 3);
   
-  const newOne1 = new LinkList();
-  newOne1.add(result1);
-  console.log(newOne1.toListNodeString());
+//   const newOne1 = new LinkList();
+//   newOne1.add(result1);
+//   console.log(newOne1.toListNodeString());
