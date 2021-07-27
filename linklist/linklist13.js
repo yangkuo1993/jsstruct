@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-07-27 17:32:22
- * @LastEditTime: 2021-07-27 18:21:42
+ * @LastEditTime: 2021-07-27 18:58:00
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /jsstruct/linklist/linklist13.js
@@ -107,13 +107,13 @@ var hasCycle = function(head) {
     if (head === null || head.next === null) {
         return false;
     }
-    let see = new Map();
+    let see = new Set();
 
     while(head) {
-        if (see.get(head)) {
+        if (see.has(head)) {
             return true;
         } else {
-            see.set(head, head.val);
+            see.add(head);
         }
         head = head.next;
     }
