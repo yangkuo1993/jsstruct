@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-08-11 18:12:08
- * @LastEditTime: 2021-08-11 18:15:43
+ * @LastEditTime: 2021-08-12 09:19:50
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /jsstruct/linklist/linklist23.js
@@ -23,5 +23,10 @@
  * @return {number[]}
  */
  var reversePrint = function(head) {
-
+    let empty = [];
+    while(head) {
+        empty.unshift(head.val);
+        head = head.next;
+    }
+    return empty;
 };
