@@ -1,3 +1,11 @@
+/*
+ * @Author: your name
+ * @Date: 2021-06-22 17:47:12
+ * @LastEditTime: 2021-07-28 11:03:34
+ * @LastEditors: your name
+ * @Description: In User Settings Edit
+ * @FilePath: /jsstruct/index.js
+ */
 /**
 @desc 链表
 链表是数据元素的线性集合，其顺序不是由它们在内存中的物理位置决定的
@@ -87,3 +95,6 @@ test.insertBeginning(test, yangkuo4)
 test.removeAfter(yangkuo2);
 test.removeBeginning(test);
 console.log(test.listAll())
+
+
+
