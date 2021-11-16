@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-08-16 16:21:20
- * @LastEditTime: 2021-08-17 15:09:03
+ * @LastEditTime: 2021-08-16 17:36:30
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /jsstruct/strings/string2.js
@@ -106,5 +106,4 @@ strs[i] 仅由小写英文字母组成
  * 
  */
 var longestCommonPrefix = function (strs) {
-    if (strs === null || strs.length === 0) return "";
-};
+    if (strs === null || strs.length === 0) return "";}
