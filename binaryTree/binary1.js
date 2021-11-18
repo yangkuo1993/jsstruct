@@ -56,17 +56,50 @@ function TreeNode(val, left, right) {
 
 /// 方法二  迭代
 
+// var inorderTraversal = function (root) {
+//   const res = [];
+//   const inorder = (root) => {
+//     if (!root) {
+//       return;
+//     }
+//     inorder(root.left);
+//     res.push(root.val)
+//     inorder(root.right);
+//   }
+//   inorder(root);
+//   return res;
+// };
+
+/// 方法3 莫里斯中序遍历
 
 var inorderTraversal = function (root) {
   const res = [];
-  const inorder = (root) => {
-    if (!root) {
-      return;
+  let predecessor = null;
+
+  while (root) {
+    if (root.left) {
+      predecessor = root.left;
+      while (predecessor.right && predecessor.right != root) {
+        predecessor = predecessor.right;
+      }
+
+      if (!predecessor.right) {
+        predecessor.right = root;
+        root = root.left;
+      } else {
+        res.push(root.val);
+        predecessor.right = null;
+        root = root.right;
+      }
+    } else {
+      res.push(root.val);
+      root = root.right;
     }
-    inorder(root.left);
-    res.push(root.val)
-    inorder(root.right);
   }
-  inorder(root);
   return res;
 };
+
+var result = inorderTraversal(
+  new TreeNode(5, new TreeNode(4, null, null), new TreeNode(3, new TreeNode(2, null, new TreeNode(0, null, null)), new TreeNode(1, null, null)))
+);
+console.log(result);
