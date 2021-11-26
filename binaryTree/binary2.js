@@ -43,9 +43,52 @@ var isSameTree = function (p, q) {
 
 如果搜索结束时两个队列同时为空，则两个二叉树相同。如果只有一个队列为空，则两个二叉树的结构不同，因此两个二叉树不同。
 
+
+时间复杂度：O(\min(m,n))O(min(m,n))，其中 mm 和 nn 分别是两个二叉树的节点数。对两个二叉树同时进行广度优先搜索，只有当两个二叉树中的对应节点都不为空时才会访问到该节点，因此被访问到的节点数不会超过较小的二叉树的节点数。
+
+空间复杂度：O(\min(m,n))O(min(m,n))，其中 mm 和 nn 分别是两个二叉树的节点数。空间复杂度取决于队列中的元素个数，队列中的元素个数不会超过较小的二叉树的节点数。
+
+作者：LeetCode-Solution
+链接：https://leetcode-cn.com/problems/same-tree/solution/xiang-tong-de-shu-by-leetcode-solution/
+来源：力扣（LeetCode）
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
 */
 
 var isSameTree = function (p, q) {
-  if (!p && !q) return true;
-  else if (!p || !q) return false;
+  if (p === null && q === null) return true;
+  else if (p === null || q === null) return false;
+  const qQueue = [];
+  const pQueue = [];
+  qQueue.push(q);
+  pQueue.push(p);
+  while (pQueue.length > 0 && qQueue.length > 0) {
+    var node1 = qQueue.shift();
+    var node2 = pQueue.shift();
+    if (node1.val !== node2.val) {
+      return false;
+    }
+    var left1 = node1.left;
+    var right1 = node1.right;
+    var left2 = node2.left;
+    var right2 = node2.right;
+    if ((left1 === null) ^ (left2 === null)) {
+      return false;
+    }
+    if ((right1 === null) ^ (right2 === null)) {
+      return false;
+    }
+    if (left1 !== null) {
+      qQueue.push(left1);
+    }
+    if (right1 !== null) {
+      qQueue.push(right1);
+    }
+    if (left2 !== null) {
+      pQueue.push(left2);
+    }
+    if (right2 !== null) {
+      pQueue.push(right2);
+    }
+  }
+  return qQueue.length === 0 && pQueue.length === 0;
 };
