@@ -74,6 +74,15 @@ https://leetcode-cn.com/problems/symmetric-tree/
 
 /**
  * 方法二迭代
+ * 复杂度分析
+
+时间复杂度：O(n)O(n)，同「方法一」。
+空间复杂度：这里需要用一个队列来维护节点，每个节点最多进队一次，出队一次，队列中最多不会超过 nn 个点，故渐进空间复杂度为 O(n)O(n)。
+
+作者：LeetCode-Solution
+链接：https://leetcode-cn.com/problems/symmetric-tree/solution/dui-cheng-er-cha-shu-by-leetcode-solution/
+来源：力扣（LeetCode）
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
  */
 
 const check = (p,q) => {
@@ -88,8 +97,9 @@ const check = (p,q) => {
         qQueue.push(q.left);
         qQueue.push(p.right);
         qQueue.push(q.right);
-        qQueue.push(p.right);
+        qQueue.push(p.left);
     }
+    return true;
 }
 
 var isSymmetric = function (root) {
